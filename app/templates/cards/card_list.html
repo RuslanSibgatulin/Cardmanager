@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="album py-6 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-2">
+            {% for card in object_list %}
+            <div class="col-md-4">
+            <div class="card bg-dark text-white" style="width: 100%;">
+                <!-- <img class="card-img-top" src="{{ card.poster_uri }}" alt="Card image"> -->
+                <div class="card-body">
+                    <p class="card-text">Demo card</p>
+                    <h5 class="card-title">{{ card.number }}</h5>
+                    <p class="card-text text-muted">exp {{ card.expiration_at|date:"d/m/Y" }}</p>
+                    <a href={% url 'cards:card-detail' card.pk %} class="stretched-link"></a>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <!-- <button type="button" class="btn btn-sm btn-outline-secondary"></button> -->
+                        </div>
+                        <small class="text-muted">{{ card.status }}</small>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
