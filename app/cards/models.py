@@ -1,12 +1,15 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import RegexValidator
+from django.db.models import F
 
 
-class CardState(models.TextChoices):
-    NotActive = "NotActive"
-    ACTIVE = "Active"
-    EXPIRED = "Expired"
+class CardState(models.IntegerChoices):
+    NOTACTIVE = 1, _("Not Active")
+    ACTIVE = 2, _("Active")
+    BLOCKED = 3, _("Blocked")
+    EXPIRED = 4, _("Expired")
 
 
 class Card(models.Model):
@@ -33,19 +36,26 @@ class Card(models.Model):
         blank=True,
         editable=False
     )
-    status = models.CharField(
+    status = models.PositiveSmallIntegerField(
         _("status"),
-        max_length=50,
         choices=CardState.choices,
-        default=CardState.NotActive
+        default=CardState.NOTACTIVE
     )
-    amount = models.FloatField(_("ammount"), editable=False, default=0)
+    amount = models.FloatField(_("ammount"), default=0)
 
 
 class Purchase(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    amount = models.FloatField(_("ammount"), default=0)
-    buytime = models.DateTimeField(
-        _("time"),
-        # auto_now_add=True
-    )
+    amount = models.FloatField(_("ammount"), default=0, validators=[MinValueValidator(0.01)])
+    buytime = models.DateTimeField(_("time"))
+
+    def clean(self) -> None:
+        if self.card.status != CardState.ACTIVE:
+            raise ValidationError(_('Card is not active.'))
+
+        if self.card.amount < self.amount:
+            raise ValidationError(_('Insufficient funds.'))
+        else:
+            Card.objects.filter(pk=self.card.pk).update(amount=F('amount') - self.amount)
+
+        return super().clean()
