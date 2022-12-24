@@ -7,14 +7,14 @@
     <div class="row px-3 m-2">
       <div class="col-md-4 rounded text-bg-dark m-1">
         <div class="row py-3">
-          <div class="col-md-9">
+          <div class="col-md-8">
             <label class="form-label disabled">Card number</label>
             <h2>{{ object.number }}</h2>
           </div>
-          <div class="col-md-3">
+          {% comment %} <div class="col-md-4 text-end">
             <label class="form-label disabled">Card series</label>
             <h2>{{ object.series }}</h2>
-          </div>
+          </div> {% endcomment %}
         </div>
         <div class="row py-3">
           <h5>Cardholder</h5>

@@ -5,11 +5,11 @@ from django.db.models import F
 from django.utils.translation import gettext_lazy as _
 
 
-class CardState(models.IntegerChoices):
-    NOTACTIVE = 1, _("Not Active")
-    ACTIVE = 2, _("Active")
-    BLOCKED = 3, _("Blocked")
-    EXPIRED = 4, _("Expired")
+class CardState(models.TextChoices):
+    NOTACTIVE = "NotActive", _("Not Active")
+    ACTIVE = "Active", _("Active")
+    BLOCKED = "Blocked", _("Blocked")
+    EXPIRED = "Expired", _("Expired")
 
 
 class Card(models.Model):
@@ -30,14 +30,9 @@ class Card(models.Model):
         editable=False
     )
     expiration_at = models.DateField(_("expiration date"))
-    used_at = models.DateTimeField(
-        _("used date"),
-        null=True,
-        blank=True,
-        editable=False
-    )
-    status = models.PositiveSmallIntegerField(
+    status = models.CharField(
         _("status"),
+        max_length=10,
         choices=CardState.choices,
         default=CardState.NOTACTIVE
     )

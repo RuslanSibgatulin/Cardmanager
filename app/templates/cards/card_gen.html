@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <main>
+    <div class="row bg-light m-2">
+        <div class="col-md-3 rounded bg-light">
+            <form method="post">{% csrf_token %}
+            <div class="mb-3">
+                <h5>Card generator</h5>
+                {{ form }}
+
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Generate</button>
+            </div>
+            </form>
+        </div>
+    </div>
+  </main>
+</div>
+
+{% endblock content %}

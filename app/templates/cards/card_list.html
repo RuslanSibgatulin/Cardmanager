@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+{% if not object_list%}
+    <p>No cards available</p>
+{% endif %}
 <div class="album py-6 bg-light">
     <div class="container">
+        {% include "pagination.html" %}
         <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-2">
             {% for card in object_list %}
             <div class="col-md-4">
