@@ -46,11 +46,11 @@ class Purchase(models.Model):
 
     def clean(self) -> None:
         if self.card.status != CardState.ACTIVE:
-            raise ValidationError(_('Card is not active.'))
+            raise ValidationError(_("Card is not active."))
 
         if self.card.amount < self.amount:
-            raise ValidationError(_('Insufficient funds.'))
+            raise ValidationError(_("Insufficient funds."))
         else:
-            Card.objects.filter(pk=self.card.pk).update(amount=F('amount') - self.amount)
+            Card.objects.filter(pk=self.card.pk).update(amount=F("amount") - self.amount)
 
         return super().clean()

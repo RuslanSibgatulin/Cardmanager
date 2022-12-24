@@ -39,12 +39,12 @@ class CardUpdateView(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['purchase_list'] = Purchase.objects.filter(card=self.object.pk).order_by("-buytime")
+        context["purchase_list"] = Purchase.objects.filter(card=self.object.pk).order_by("-buytime")
         return context
 
 
 class PurchaseCreateView(View):
-    http_method_names = ['post']
+    http_method_names = ["post"]
     model = Purchase
 
     def post(self, request: HttpRequest, *args, **kwargs):
@@ -57,13 +57,13 @@ class PurchaseCreateView(View):
             for msg in err_msg:
                 messages.error(request, msg)
 
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 class CardGeneratorView(FormView):
     form_class = CardGeneratorForm
-    template_name = 'cards/card_gen.html'
-    success_url = '#'
+    template_name = "cards/card_gen.html"
+    success_url = "#"
 
     def post(self, request: HttpRequest, *args, **kwargs):
         form = CardGeneratorForm(request.POST)
@@ -88,4 +88,4 @@ class CardGeneratorView(FormView):
             else:
                 messages.error(request, f"Not enough available numbers in series {series}")
 
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

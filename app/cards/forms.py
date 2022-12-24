@@ -9,6 +9,7 @@ class CardStatusForm(forms.ModelForm):
     status_choices = (
         (CardState.ACTIVE.value, CardState.ACTIVE.label),
         (CardState.BLOCKED.value, CardState.BLOCKED.label)
+
     )
 
     status = forms.ChoiceField(
