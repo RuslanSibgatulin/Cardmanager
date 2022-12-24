@@ -11,4 +11,4 @@ from .models import Card, CardState
 @receiver(pre_save, sender=Card)
 def status_rule(sender: Any, instance: Card, **kwargs):
     if instance.status == CardState.EXPIRED:
-        raise ValidationError(_('Card has expired. Any operations are prohibited.'))
+        raise ValidationError(_("Card has expired. Any operations are prohibited."))

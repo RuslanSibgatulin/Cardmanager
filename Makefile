@@ -30,9 +30,9 @@ migrate:
 
 
 lint-install:
-		pip install lxml mypy wemake-python-styleguide flake8-html
+		pip install lxml mypy wemake-python-styleguide flake8-html types-python-dateutil
 
 lint:
 		isort app/
 		flake8 app/ --show-source
-		mypy app/ --ignore-missing-imports --no-strict-optional --exclude /migrations/ --exclude /tests/
+		mypy app/ --ignore-missing-imports --no-strict-optional --exclude /migrations/ --exclude /tests/ --disable-error-code=attr-defined
