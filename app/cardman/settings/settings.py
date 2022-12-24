@@ -73,4 +73,5 @@ include(
     "middleware.py",  # Middleware
     "templates.py",  # Templates
     "auth.py",  # Auth
+    "message_tags.py"
 )

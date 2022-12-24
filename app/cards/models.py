@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.db.models import F
+from django.utils.translation import gettext_lazy as _
 
 
 class CardState(models.IntegerChoices):
