@@ -1,17 +1,18 @@
+import logging
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .models import Card, CardState, Purchase
 
+logger = logging.getLogger(__name__)
+
 
 class CardStatusForm(forms.ModelForm):
-
     status_choices = (
         (CardState.ACTIVE.value, CardState.ACTIVE.label),
         (CardState.BLOCKED.value, CardState.BLOCKED.label)
-
     )
-
     status = forms.ChoiceField(
         label=_("Status"),
         required=True,
@@ -25,9 +26,14 @@ class CardStatusForm(forms.ModelForm):
         model = Card
         fields = ["status"]
 
+    def clean(self):
+        super().clean()
+        if self.instance.status == CardState.EXPIRED:
+            logger.error("Cannot change %s - Expired", self.instance)
+            self.add_error("status", _("Cannot change expired card."))
+
 
 class PurchaseByCardForm(forms.ModelForm):
-    # TODO: add fields
     class Meta:
         model = Purchase
         fields = ["card", "amount", "buytime"]
