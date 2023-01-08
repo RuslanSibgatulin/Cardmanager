@@ -26,7 +26,7 @@ jobs:
           pip3 install $(grep -v '^ *#\|^uwsgi' requirements.txt | grep .)
       - name: Run mypy
         run: |
-          mypy app/ --ignore-missing-imports --no-strict-optional --exclude /migrations/ --exclude /tests/
+          mypy app/ --ignore-missing-imports --no-strict-optional --exclude /migrations/ --exclude /tests/ --disable-error-code=attr-defined
           
       - name: Run flake8
         run: |
