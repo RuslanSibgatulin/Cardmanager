@@ -8,5 +8,4 @@ class CardsConfig(AppConfig):
     verbose_name = _("cards")
 
     def ready(self) -> None:
-        # import signal module
-        pass
+        import cards.signals

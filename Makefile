@@ -9,6 +9,7 @@ compose_files=-f docker-compose.yml
 help:     ## Show this help.
 		@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
 
+# TODO: compose
 start:  ## Start project
 		cd docker && DOCKER_BUILDKIT=1 docker-compose $(compose_files) up -d --build --force-recreate
 

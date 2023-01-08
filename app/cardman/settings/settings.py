@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-from celery.schedules import crontab
 from split_settings.tools import include
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -58,20 +57,11 @@ STATICFILES_DIRS = [
 ]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", "redis://localhost:6379/1")
-CELERY_SCHEDULE_INTERVAL = int(os.environ.get("CELERY_SCHEDULE_INTERVAL", 1))
-CELERY_BEAT_SCHEDULE = {
-    "card_expired": {
-        "task": "cards.tasks.card_expired",
-        "schedule": crontab(hour="0"),  # at midnight
-    },
-}
-
 include(
     "logger.py",  # LOGGING
     "middleware.py",  # Middleware
     "templates.py",  # Templates
     "auth.py",  # Auth
-    "message_tags.py"
+    "message_tags.py",
+    "celery_conf.py",
 )
