@@ -11,22 +11,9 @@ DEBUG = os.environ.get("DJANGO_DEBUG", False) == "True"
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 
-INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "notice",
-    "rest_framework",
-    "drf_yasg",
-    "phonenumber_field"
-]
+ROOT_URLCONF = "cardman.urls"
 
-ROOT_URLCONF = "notice_admin.urls"
-
-WSGI_APPLICATION = "notice_admin.wsgi.application"
+WSGI_APPLICATION = "cardman.wsgi.application"
 
 DATABASES = {
     "default": {
@@ -43,19 +30,12 @@ STATIC_URL = "static/"
 STATIC_ROOT = "static"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
-REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
-    ],
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 100,
-}
-
 include(
     "logger.py",  # LOGGING
     "middleware.py",  # Middleware
     "templates.py",  # Templates
     "auth.py",  # Auth
-    "message_tags.py"
+    "message_tags.py",
+    "celery_conf.py",
+    "apps.py",
 )

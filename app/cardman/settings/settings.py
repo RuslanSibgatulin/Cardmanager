@@ -11,28 +11,12 @@ DEBUG = os.environ.get("DJANGO_DEBUG", False) == "True"
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 
-INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "cards"
-]
-
 ROOT_URLCONF = "cardman.urls"
 
 WSGI_APPLICATION = "cardman.wsgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
-PROD_DATABASES = {
+DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("POSTGRES_DB"),
@@ -52,6 +36,7 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR.joinpath("static")
 STATICFILES_DIRS = [
     "static",
 ]
@@ -64,4 +49,5 @@ include(
     "auth.py",  # Auth
     "message_tags.py",
     "celery_conf.py",
+    "apps.py",
 )

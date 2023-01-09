@@ -1,4 +1,4 @@
-name: Notifications CI
+name: Cardman CI
 
 on:
   push:
