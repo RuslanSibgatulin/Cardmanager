@@ -22,6 +22,7 @@
 
     make start
     make init
+    make static
 
 # Функциональность
 - [Главная страница приложения](http://127.0.0.1/cards/)
